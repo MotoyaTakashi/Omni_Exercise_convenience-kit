@@ -1,0 +1,27 @@
+import: definition.yaml
+
+definition:
+  task:
+    overwrite:
+      parameters:
+        controller_address: "http://localhost:5020/api"
+
+concurrency:
+  task:
+    dbbench-std: 2
+    #os_interaction-std: 2
+    alfworld-std: 2 
+    webshop-std: 2
+  agent:
+    vllm-model: 8
+
+assignments: # List[Assignment] | Assignment
+  - agent: # "task": List[str] | str ,  "agent": List[str] | str
+      - vllm-model
+    task:
+      - dbbench-std
+      #- os_interaction-std
+      - alfworld-std
+      - webshop-std
+
+output: "outputs/{TIMESTAMP}"
